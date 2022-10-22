@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-USE App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,5 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('tests/test', [TestController::class, 'index']);
+require __DIR__.'/auth.php';
