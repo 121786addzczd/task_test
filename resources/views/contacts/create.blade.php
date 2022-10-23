@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                 <section class="text-gray-600 body-font relative">
-                <form method="post" action="">
+                <form method="post" action="{{ route('contacts.store') }}">
                     @csrf
                     <div class="container px-5 mx-auto">
 
@@ -59,9 +59,9 @@
                                     <option value="0">選択してください</option>
                                     <option value="1">〜19歳</option>
                                     <option value="2">20歳〜29歳</option>
-                                    <option value="3">30歳〜29歳</option>
-                                    <option value="4">40歳〜29歳</option>
-                                    <option value="5">50歳〜29歳</option>
+                                    <option value="3">30歳〜39歳</option>
+                                    <option value="4">40歳〜49歳</option>
+                                    <option value="5">50歳〜59歳</option>
                                     <option value="6">60歳〜</option>
                                 </select>
                             </div>
