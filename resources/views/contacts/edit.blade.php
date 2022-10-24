@@ -13,27 +13,35 @@
                 <form method="post" action="{{ route('contacts.update', ['id' => $contact->id ]) }}">
                     @csrf
                     <div class="container px-5 mx-auto">
-
+                        @php
+                        $color = array('name' => 'gray', 'title' => 'gray', 'email' => 'gray', 'age' => 'gray', 'contact' => 'gray');
+                        @endphp
                         <div class="lg:w-1/2 md:w-2/3 mx-auto">
                         <div class="flex flex-wrap -m-2">
                             <div class="p-2 w-full">
                             <div class="relative">
+                                @php if ($errors->get('name')) $color['name'] = 'red' @endphp
                                 <label for="name" class="leading-7 text-sm text-gray-600">氏名</label>
-                                <input type="text" id="name" name="name" value="{{ $contact->name }}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                <input type="text" id="name" name="name" value="{{ $contact->name }}" class="w-full bg-{{ $color['name'] }}-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
                             </div>
                             </div>
 
                             <div class="p-2 w-full">
                             <div class="relative">
+                                @php if ($errors->get('title')) $color['title'] = 'red' @endphp
                                 <label for="title" class="leading-7 text-sm text-gray-600">件名</label>
-                                <input type="text" id="title" name="title" value="{{ $contact->title }}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                <input type="text" id="title" name="title" value="{{ $contact->title }}" class="w-full bg-{{ $color['title'] }}-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                <x-input-error :messages="$errors->get('title')" class="mt-2" />
                             </div>
                             </div>
 
                             <div class="p-2 w-full">
                             <div class="relative">
+                                @php if ($errors->get('email')) $color['email'] = 'red' @endphp
                                 <label for="email" class="leading-7 text-sm text-gray-600">メールアドレス</label>
-                                <input type="email" id="email" name="email" value="{{ $contact->email }}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                <input type="email" id="email" name="email" value="{{ $contact->email }}" class="w-full bg-{{ $color['email'] }}-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
                             </div>
                             </div>
 
@@ -47,16 +55,18 @@
                             <div class="p-2 w-full">
                             <div class="relative">
                                 <label for="name" class="leading-7 text-sm text-gray-600">性別</label><br>
-                                <input type="radio" name="gender" value="0" @if ($contact->gender == 0) checked @endif>男性
+                                <input type="radio" name="gender" value="0" @if ($contact->gender == 0) checked @endif required>男性
                                 <input type="radio" name="gender" value="1" @if ($contact->gender == 1) checked @endif>女性
+                                <x-input-error :messages="$errors->get('gender')" class="mt-2" />
                             </div>
                             </div>
 
                             <div class="p-2 w-full">
                             <div class="relative">
+                                @php if ($errors->get('age')) $color['age'] = 'red' @endphp
                                 <label for="age" class="leading-7 text-sm text-gray-600">年齢</label>
-                                <select name="age">
-                                    <option value="0">選択してください</option>
+                                <select name="age" class="w-6/12 bg-{{ $color['age'] }}-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                    <option value="">選択してください</option>
                                     <option value="1" @if ($contact->age == 1) selected @endif>〜19歳</option>
                                     <option value="2" @if ($contact->age == 2) selected @endif>20歳〜29歳</option>
                                     <option value="3" @if ($contact->age == 3) selected @endif>30歳〜39歳</option>
@@ -64,14 +74,17 @@
                                     <option value="5" @if ($contact->age == 5) selected @endif>50歳〜59歳</option>
                                     <option value="6" @if ($contact->age == 6) selected @endif>60歳〜</option>
                                 </select>
+                                <x-input-error :messages="$errors->get('age')" class="mt-2" />
                             </div>
                             </div>
 
 
                             <div class="p-2 w-full">
                             <div class="relative">
+                                @php if ($errors->get('contact')) $color['contact'] = 'red' @endphp
                                 <label for="contact" class="leading-7 text-sm text-gray-600">お問合せ内容</label>
-                                <textarea id="contact" name="contact" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out">value="{{ $contact->contact }}"</textarea>
+                                <textarea id="contact" name="contact" class="w-full bg-{{ $color['contact'] }}-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out">{{ $contact->contact }}</textarea>
+                                <x-input-error :messages="$errors->get('contact')" class="mt-2" />
                             </div>
                             </div>
 
